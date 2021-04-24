@@ -1,0 +1,6 @@
+[build]
+  command = "hugo"
+  publish = "public"
+
+[build.environment]
+  HUGE_VERSION = "0.82.1"

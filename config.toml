@@ -1,6 +1,7 @@
 baseURL = "https://hikewithtyke.com/"
 languageCode = "en-us"
 title = "Hike with Tyke"
+theme = "ananke"
 
 enableRobotsTXT = true
 

@@ -8,3 +8,4 @@ enableRobotsTXT = true
 [params]
   description = "Hike with Tyke business page."
   instagram = "https://instagram.com/hikewithtyke"
+  facebook = "https://facebook.com/hikewithtyke"

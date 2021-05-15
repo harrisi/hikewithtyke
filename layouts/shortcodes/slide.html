@@ -21,6 +21,9 @@
         opacity: 0;
         animation: slide infinite {{$animationDuration}}s;
     }
+    img, video {
+	    aspect-ratio: attr(width) / attr(height);
+    }
 
     {{ $x := div 100.0 $animationDuration }}
     {{ $p0 := 0 }}
@@ -43,6 +46,6 @@
 
 <div class="slider">
 	{{ range (shuffle $files) }}
-	<img src="{{ $param }}{{ .Name }}" />
+	<img loading=lazy src="{{ $param }}{{ .Name }}" width="800" height="600" />
 	{{ end }}
 </div>

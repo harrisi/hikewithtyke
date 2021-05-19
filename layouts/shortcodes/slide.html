@@ -46,6 +46,6 @@
 
 <div class="slider">
 	{{ range (shuffle $files) }}
-	<img loading=lazy src="{{ $param }}{{ .Name }}" width="800" height="600" />
+	<img loading=lazy src="{{ $param }}{{ .Name }}?nf_resize=smartcrop&w=800&h=600" width="800" height="600" />
 	{{ end }}
 </div>

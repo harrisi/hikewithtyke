@@ -39,8 +39,8 @@
 </style>
 
 <div class="slider">
-  <img id='slider-img' loading=lazy src="{{ path.Join $param (index (shuffle $files) 0) }}" width="800" height="600" />
-  <img id='slider-next' class='transparent' loading=lazy src='{{ path.Join $param (index (shuffle $files) 0) }}'
+  <img alt='image of some of our clients (dogs)' id='slider-img' loading=lazy src="{{ path.Join $param (index (shuffle $files) 0) }}" width="800" height="600" />
+  <img alt='image of some of our clients (dogs)' id='slider-next' class='transparent' loading=lazy src='{{ path.Join $param (index (shuffle $files) 0) }}'
     width='800' height='600' />
 </div>
 

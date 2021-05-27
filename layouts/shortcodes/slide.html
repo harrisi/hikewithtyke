@@ -3,49 +3,75 @@
 {{ $param := .Get 0 }}
 {{ $localFolder := printf "/static%s/" $param }}
 
-{{ $files := readDir $localFolder }}
-{{ $numberOfFiles := len $files }}
-{{ $animationDuration := mul (add $fadein $visible) $numberOfFiles }}
+{{ $files := slice }}
+{{ range (readDir $localFolder) }}
+{{ $files = $files | append .Name }}
+{{ end }}
 
 <style>
-    .slider {
-        padding-bottom: 70%;
-        width: 100%;
-        height: 500px;
-        position: relative;
-    }
-    .slider img {
-        width: 100%;
-        height: auto;
-        position: absolute;
-        opacity: 0;
-        animation: slide infinite {{$animationDuration}}s;
-    }
-    img, video {
-	    aspect-ratio: attr(width) / attr(height);
-    }
+  .slider {
+    padding-bottom: 70%;
+    width: 100%;
+    height: 500px;
+    position: relative;
+  }
 
-    {{ $x := div 100.0 $animationDuration }}
-    {{ $p0 := 0 }}
-    {{ $p1 := mul $x $fadein }}
-    {{ $p2 := mul $x (add $fadein $visible) }}
-    {{ $p3 := mul $x (add (add $fadein $visible) $fadein) }}
+  .slider img {
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+  }
 
-    @keyframes slide {
-        {{ $p0 }}% { opacity: 0; }
-        {{ $p1 }}% { opacity: 1; }
-        {{ $p2 }}% { opacity: 1; }
-        {{ $p3 }}% { opacity: 0; }
-    }
+  img,
+  video {
+    aspect-ratio: attr(width) / attr(height);
+  }
 
-    {{ range $index, $value := $files }}
-    {{ $delay := mul (add $fadein $visible) $index }}
-    .slider img:nth-child({{add $index 1}}){animation-delay:{{$delay}}s;}
-    {{ end }}
+  .slider img.transparent {
+    opacity: 0;
+  }
 </style>
 
 <div class="slider">
-	{{ range (shuffle $files) }}
-	<img loading=lazy src="{{ $param }}{{ .Name }}?nf_resize=smartcrop&w=800&h=600" width="800" height="600" />
-	{{ end }}
+  <img id='slider-img' loading=lazy src="{{ path.Join $param (index (shuffle $files) 0) }}" width="800" height="600" />
+  <img id='slider-next' class='transparent' loading=lazy src='{{ path.Join $param (index (shuffle $files) 0) }}'
+    width='800' height='600' />
 </div>
+
+<script>
+  function asyncLoadImg(img, url) {
+    return new Promise((res, rej) => {
+      img.src = url
+      img.onload = () => res(img)
+      img.onerror = () => rej(new Error('could not load image'))
+    })
+  }
+
+  const files = {{ $files }}
+  let flip = false
+  setInterval(() => {
+    let imgCur = document.getElementById('slider-img')
+    let img = document.getElementById('slider-next')
+    let foo = `${files[Math.floor(Math.random() * files.length)]}`
+    if (flip) {
+      asyncLoadImg(imgCur, {{ $param }} + `${files[Math.floor(Math.random() * files.length)]}`)
+        .then(res => {
+          imgCur.classList.toggle('transparent')
+          img.classList.toggle('transparent')
+        })
+    } else {
+      asyncLoadImg(img, {{ $param }} + `${files[Math.floor(Math.random() * files.length)]}`)
+        .then(res => {
+          imgCur.classList.toggle('transparent')
+          img.classList.toggle('transparent')
+      })
+    }
+    flip = !flip
+  }, 5000)
+</script>

@@ -4,8 +4,10 @@
 {{ $localFolder := printf "/static%s/" $param }}
 
 {{ $files := slice }}
-{{ range (readDir $localFolder) }}
-{{ $files = $files | append .Name }}
+{{ range readDir $localFolder }}
+  {{ if eq (path.Ext .Name) ".png" }}
+    {{ $files = $files | append .Name }}
+  {{ end }}
 {{ end }}
 
 <style>
@@ -39,8 +41,8 @@
 </style>
 
 <div class="slider">
-  <img alt='image of some of our clients (dogs)' id='slider-img' loading=lazy src="{{ path.Join $param (index (shuffle $files) 0) }}" width="800" height="600" />
-  <img alt='image of some of our clients (dogs)' id='slider-next' class='transparent' loading=lazy src='{{ path.Join $param (index (shuffle $files) 0) }}'
+  <img alt='image of some of our clients (dogs)' id='slider-img' loading=lazy src="{{ path.Join $param (index (shuffle $files) 0) }}?nf_resize=smartcrop&w=800&h=600" width="800" height="600" />
+  <img alt='image of some of our clients (dogs)' id='slider-next' class='transparent' loading=lazy src='{{ path.Join $param (index (shuffle $files) 0) }}&nf_resize=smartcrop&w=800&h=600'
     width='800' height='600' />
 </div>
 

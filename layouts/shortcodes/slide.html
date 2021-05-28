@@ -49,7 +49,7 @@
 <script>
   function asyncLoadImg(img, url) {
     return new Promise((res, rej) => {
-      img.src = url
+      img.src = `${url}?nf_resize=smartcrop&w=800&h=600`
       img.onload = () => res(img)
       img.onerror = () => rej(new Error('could not load image'))
     })

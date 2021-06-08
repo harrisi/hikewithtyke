@@ -5,7 +5,7 @@ type: page
 menu: main
 ---
 
-Hello, my name is Sierra and I am the creator of Hike with Tyke. I was previously the manager of a dog daycare. When the daycare closed down, I couldn’t imagine living without the dogs I had become so attached to. So I worked hard to set up my dog hiking business, and am proud of the company I have created. I now have over 5 years of dog care experience, and cherish the connections I havve made with every dog. I often refer to myself as their “other mother” because I truly love each of them as if they were my own. With my experience and knowledge, parents can count on me to care for their beloved fur babies.
+Hello, my name is Sierra and I am the creator of Hike with Tyke. I was previously the manager of a dog daycare. When the daycare closed down, I couldn’t imagine living without the dogs I had become so attached to. So I worked hard to set up my dog hiking business, and am proud of the company I have created. I now have over 5 years of dog care experience, and cherish the connections I have made with every dog. I often refer to myself as their “other mother” because I truly love each of them as if they were my own. With my experience and knowledge, parents can count on me to care for their beloved fur babies.
 
 Who is Tyke?
 ===

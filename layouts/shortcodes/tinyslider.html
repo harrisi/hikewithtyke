@@ -1,0 +1,34 @@
+{{ $param := .Get 0 }}
+{{ $localFolder := printf "/static%s/" $param }}
+
+{{ $files := slice }}
+{{ range readDir $localFolder }}
+  {{ if eq (path.Ext .Name) ".png" }}
+    {{ $files = $files | append .Name }}
+  {{ end }}
+{{ end }}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+
+<div style="height: 600px" class='slider'>
+  {{ range $files }}
+    <div>
+      <img data-src="{{ $param }}{{ . }}?nf_resize=fit&w=800&h=600" class='tns-lazy-img' />
+    </div>
+  {{ end }}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.js"></script>
+
+<script>
+  let slider = tns({
+    mode: 'gallery',
+    items: 1,
+    controls: false,
+    nav: false,
+    speed: 500,
+    autoplay: true,
+    autoplayButtonOutput: false,
+    lazyload: true,
+  })
+</script>
